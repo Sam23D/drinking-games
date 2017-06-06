@@ -2,6 +2,7 @@ import Html exposing(..)
 import Html.Attributes exposing(..)
 import Html.Events exposing(..)
 import Debug exposing(..)
+import Random
 
 import Cartas exposing(..)
 
@@ -22,6 +23,7 @@ init = ( globalModel , Cmd.none)
 type Actions 
     =   Nada
     |   Shuffle
+    |   Shuffled (List Card)
     |   DrawCard
 
 
@@ -36,12 +38,15 @@ update msg model =
           ( {model | currentShowedCard = card, deck = remaining } , Cmd.none)
 
       Shuffle ->
-        (model, Cmd.none)        
-          
+        let
+          shuffled = log "shuffled: " (suffleDeck model.deck)
 
-shuffleDeck deck =
-  deck
+        in
+          (model, Random.generate Shuffled shuffled)
 
+      Shuffled newDeck->
+        ({model | deck = newDeck }, Cmd.none)        
+      
 
 subscriptions model =
   Sub.none
@@ -49,7 +54,8 @@ subscriptions model =
 view model =
   div [ ] 
     [ p [ ][ text <| "Current: " ++ ( toString model.currentShowedCard ) ]
-    , button[ onClick DrawCard ][ text "draw card" ]
+    , button[ onClick DrawCard ][ text "Draw" ]
+    , button[ onClick Shuffle ][ text "Shuffle" ]
     , p [ ][ text <| "Remaining: " ++ (toString model.deck) ]
     
     ]

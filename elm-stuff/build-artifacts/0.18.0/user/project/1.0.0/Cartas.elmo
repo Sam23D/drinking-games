@@ -1,3 +1,6 @@
+var _user$project$Cartas$suffleDeck = function (deck) {
+	return _elm_community$random_extra$Random_List$shuffle(deck);
+};
 var _user$project$Cartas$drawCard_ = function (deck) {
 	var remaining = A2(
 		_elm_lang$core$Maybe$withDefault,

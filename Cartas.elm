@@ -1,6 +1,7 @@
 module Cartas exposing (..)
 
 import Maybe exposing(..)
+import Random.List exposing(shuffle)
 
 allCardNumbers : List CardNumber
 allCardNumbers =
@@ -76,4 +77,6 @@ drawCard_ deck =
   in
     (drawn, remaining)
 
+suffleDeck deck =
+    shuffle deck
 
