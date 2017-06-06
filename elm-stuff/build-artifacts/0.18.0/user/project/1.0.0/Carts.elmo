@@ -1,0 +1,119 @@
+var _user$project$Carts$suffleDeck = function (deck) {
+	return _elm_community$random_extra$Random_List$shuffle(deck);
+};
+var _user$project$Carts$drawCard_ = function (deck) {
+	var remaining = A2(
+		_elm_lang$core$Maybe$withDefault,
+		{ctor: '[]'},
+		_elm_lang$core$List$tail(deck));
+	var drawn = _elm_lang$core$List$head(deck);
+	return {ctor: '_Tuple2', _0: drawn, _1: remaining};
+};
+var _user$project$Carts$Card = F2(
+	function (a, b) {
+		return {suit: a, number: b};
+	});
+var _user$project$Carts$Deck = F2(
+	function (a, b) {
+		return {cards: a, remaining: b};
+	});
+var _user$project$Carts$Diamonds = {ctor: 'Diamonds'};
+var _user$project$Carts$Hearts = {ctor: 'Hearts'};
+var _user$project$Carts$Clubs = {ctor: 'Clubs'};
+var _user$project$Carts$Spades = {ctor: 'Spades'};
+var _user$project$Carts$allCardSuits = {
+	ctor: '::',
+	_0: _user$project$Carts$Spades,
+	_1: {
+		ctor: '::',
+		_0: _user$project$Carts$Clubs,
+		_1: {
+			ctor: '::',
+			_0: _user$project$Carts$Diamonds,
+			_1: {
+				ctor: '::',
+				_0: _user$project$Carts$Hearts,
+				_1: {ctor: '[]'}
+			}
+		}
+	}
+};
+var _user$project$Carts$Two = {ctor: 'Two'};
+var _user$project$Carts$Three = {ctor: 'Three'};
+var _user$project$Carts$Four = {ctor: 'Four'};
+var _user$project$Carts$Five = {ctor: 'Five'};
+var _user$project$Carts$Six = {ctor: 'Six'};
+var _user$project$Carts$Seven = {ctor: 'Seven'};
+var _user$project$Carts$Eight = {ctor: 'Eight'};
+var _user$project$Carts$Nine = {ctor: 'Nine'};
+var _user$project$Carts$Ten = {ctor: 'Ten'};
+var _user$project$Carts$Jack = {ctor: 'Jack'};
+var _user$project$Carts$Queen = {ctor: 'Queen'};
+var _user$project$Carts$King = {ctor: 'King'};
+var _user$project$Carts$Ace = {ctor: 'Ace'};
+var _user$project$Carts$allCardNumbers = {
+	ctor: '::',
+	_0: _user$project$Carts$Ace,
+	_1: {
+		ctor: '::',
+		_0: _user$project$Carts$King,
+		_1: {
+			ctor: '::',
+			_0: _user$project$Carts$Queen,
+			_1: {
+				ctor: '::',
+				_0: _user$project$Carts$Jack,
+				_1: {
+					ctor: '::',
+					_0: _user$project$Carts$Ten,
+					_1: {
+						ctor: '::',
+						_0: _user$project$Carts$Nine,
+						_1: {
+							ctor: '::',
+							_0: _user$project$Carts$Eight,
+							_1: {
+								ctor: '::',
+								_0: _user$project$Carts$Seven,
+								_1: {
+									ctor: '::',
+									_0: _user$project$Carts$Six,
+									_1: {
+										ctor: '::',
+										_0: _user$project$Carts$Five,
+										_1: {
+											ctor: '::',
+											_0: _user$project$Carts$Four,
+											_1: {
+												ctor: '::',
+												_0: _user$project$Carts$Three,
+												_1: {
+													ctor: '::',
+													_0: _user$project$Carts$Two,
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+};
+var _user$project$Carts$cardsOfSuit = function (suit) {
+	return A2(
+		_elm_lang$core$List$map,
+		_user$project$Carts$Card(suit),
+		_user$project$Carts$allCardNumbers);
+};
+var _user$project$Carts$allCards = _elm_lang$core$List$concat(
+	A2(_elm_lang$core$List$map, _user$project$Carts$cardsOfSuit, _user$project$Carts$allCardSuits));
+var _user$project$Carts$newDeckOfCards = function () {
+	var currentAllCards = _user$project$Carts$allCards;
+	var deckSize = _elm_lang$core$List$length(currentAllCards);
+	return A2(_user$project$Carts$Deck, currentAllCards, deckSize);
+}();

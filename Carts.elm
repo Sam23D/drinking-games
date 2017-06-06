@@ -1,4 +1,4 @@
-module Cartas exposing (..)
+module Carts exposing (..)
 
 import Maybe exposing(..)
 import Random.List exposing(shuffle)

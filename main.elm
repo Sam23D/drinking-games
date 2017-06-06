@@ -4,7 +4,7 @@ import Html.Events exposing(..)
 import Debug exposing(..)
 import Random
 
-import Cartas exposing(..)
+import Carts exposing(..)
 
 main = 
     program 

@@ -1,7 +1,7 @@
 var _user$project$Main$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$none;
 };
-var _user$project$Main$globalModel = {deck: _user$project$Cartas$allCards, currentShowedCard: _elm_lang$core$Maybe$Nothing};
+var _user$project$Main$globalModel = {deck: _user$project$Carts$allCards, currentShowedCard: _elm_lang$core$Maybe$Nothing};
 var _user$project$Main$init = {ctor: '_Tuple2', _0: _user$project$Main$globalModel, _1: _elm_lang$core$Platform_Cmd$none};
 var _user$project$Main$DrawCard = {ctor: 'DrawCard'};
 var _user$project$Main$Shuffled = function (a) {
@@ -14,7 +14,7 @@ var _user$project$Main$update = F2(
 			case 'Nada':
 				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 			case 'DrawCard':
-				var _p1 = _user$project$Cartas$drawCard_(model.deck);
+				var _p1 = _user$project$Carts$drawCard_(model.deck);
 				var card = _p1._0;
 				var remaining = _p1._1;
 				return {
@@ -28,7 +28,7 @@ var _user$project$Main$update = F2(
 				var shuffled = A2(
 					_elm_lang$core$Debug$log,
 					'shuffled: ',
-					_user$project$Cartas$suffleDeck(model.deck));
+					_user$project$Carts$suffleDeck(model.deck));
 				return {
 					ctor: '_Tuple2',
 					_0: model,

@@ -1,0 +1,6 @@
+var _user$project$KingsCup$Card = function (a) {
+	return {ctor: 'Card', _0: a};
+};
+var _user$project$KingsCup$List = function (a) {
+	return {ctor: 'List', _0: a};
+};
