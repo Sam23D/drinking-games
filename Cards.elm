@@ -1,4 +1,4 @@
-module Carts exposing (..)
+module Cards exposing (..)
 
 import Maybe exposing(..)
 import Random.List exposing(shuffle)
@@ -70,6 +70,10 @@ newDeckOfCards =
     in
         Deck currentAllCards deckSize
 
+suitOf : Card -> Suit
+suitOf card =
+    card.suit
+
 drawCard_ deck =
   let
     drawn = List.head deck
@@ -79,4 +83,10 @@ drawCard_ deck =
 
 suffleDeck deck =
     shuffle deck
+
+sameNumber card1 card2 =
+    card1.number == card2.number
+
+sameSuit card1 card2 =
+    card1.suit == card2.suit
 

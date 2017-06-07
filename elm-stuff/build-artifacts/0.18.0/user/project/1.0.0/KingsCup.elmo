@@ -1,6 +1,117 @@
-var _user$project$KingsCup$Card = function (a) {
-	return {ctor: 'Card', _0: a};
+var _user$project$KingsCup$cardSuitEqualToRules = F2(
+	function (card, rule) {
+		return _elm_lang$core$Native_Utils.eq(card.suit, rule.card.suit);
+	});
+var _user$project$KingsCup$ruleForSuit = F2(
+	function (card, ruleSet) {
+		var _p0 = A2(
+			_elm_lang$core$List$filter,
+			_user$project$KingsCup$cardSuitEqualToRules(card),
+			ruleSet);
+		if (_p0.ctor === '[]') {
+			return 'NO RULE';
+		} else {
+			return _p0._0.rule;
+		}
+	});
+var _user$project$KingsCup$cardNumEqualToRules = F2(
+	function (card, rule) {
+		return _elm_lang$core$Native_Utils.eq(card.number, rule.card.number);
+	});
+var _user$project$KingsCup$ruleForNumber = F2(
+	function (card, ruleSet) {
+		var _p1 = A2(
+			_elm_lang$core$List$filter,
+			_user$project$KingsCup$cardNumEqualToRules(card),
+			ruleSet);
+		if (_p1.ctor === '[]') {
+			return 'NO RULE';
+		} else {
+			return _p1._0.rule;
+		}
+	});
+var _user$project$KingsCup$rulesKingsCup = {
+	ctor: '::',
+	_0: 'WATERFALL - Everyone chungs. You can stop when the person to your right stops, or just keep going!',
+	_1: {
+		ctor: '::',
+		_0: 'KING\'S CUP - Pour your drink into the cup. Last King drawn drinks the cup and ends the game!',
+		_1: {
+			ctor: '::',
+			_0: 'QUESTION - take turns asking questions to each other quickly, first to pause or laught drinks',
+			_1: {
+				ctor: '::',
+				_0: 'RULE - Make a rule. If someone breaks it at any time they must drink',
+				_1: {
+					ctor: '::',
+					_0: 'SOCIAL - Cheers, everyone drinks',
+					_1: {
+						ctor: '::',
+						_0: 'RHYME - You choose a word, Take turns saying rhyming words quickly. First to pause or miss drink',
+						_1: {
+							ctor: '::',
+							_0: 'MATE - Choose a mate, This person will drink when you drink',
+							_1: {
+								ctor: '::',
+								_0: 'THUMBMASTER - You are the thumb master. Place your thumb on the edge of the table at any time, everyone must too. Last person to do so drinks',
+								_1: {
+									ctor: '::',
+									_0: 'DICKS - Dudes drink',
+									_1: {
+										ctor: '::',
+										_0: 'SLAP - Last person to slap the table drink',
+										_1: {
+											ctor: '::',
+											_0: 'WHORES - Chicks drink',
+											_1: {
+												ctor: '::',
+												_0: 'ME - Take a drink',
+												_1: {
+													ctor: '::',
+													_0: 'YOU - Give a drink',
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 };
-var _user$project$KingsCup$List = function (a) {
-	return {ctor: 'List', _0: a};
+var _user$project$KingsCup$Rule = F2(
+	function (a, b) {
+		return {card: a, rule: b};
+	});
+var _user$project$KingsCup$allRulesForSuit = F2(
+	function (suit, ruleSet) {
+		return A3(
+			_elm_lang$core$List$map2,
+			_user$project$KingsCup$Rule,
+			_user$project$Cards$cardsOfSuit(suit),
+			ruleSet);
+	});
+var _user$project$KingsCup$allRules = function (ruleSet) {
+	var allRules = function (suits) {
+		return A2(_user$project$KingsCup$allRulesForSuit, suits, ruleSet);
+	};
+	return _elm_lang$core$List$concat(
+		A2(_elm_lang$core$List$map, allRules, _user$project$Cards$allCardSuits));
 };
+var _user$project$KingsCup$kingsCupRuleSet = _user$project$KingsCup$allRules(_user$project$KingsCup$rulesKingsCup);
+var _user$project$KingsCup$allDrink = A2(
+	_user$project$KingsCup$Rule,
+	{suit: _user$project$Cards$Spades, number: _user$project$Cards$Ace},
+	'todos toman');
+var _user$project$KingsCup$allHesDrink = A2(
+	_user$project$KingsCup$Rule,
+	{suit: _user$project$Cards$Hearts, number: _user$project$Cards$Ace},
+	'ello toman');
+var _user$project$KingsCup$someDrink = A2(
+	_user$project$KingsCup$Rule,
+	{suit: _user$project$Cards$Spades, number: _user$project$Cards$King},
+	'todos toman');

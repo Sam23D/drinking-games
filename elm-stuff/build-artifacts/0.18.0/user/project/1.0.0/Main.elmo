@@ -1,7 +1,15 @@
+var _user$project$Main$showRule = function (modelCard) {
+	var _p0 = modelCard;
+	if (_p0.ctor === 'Nothing') {
+		return 'No Rule';
+	} else {
+		return A2(_user$project$KingsCup$ruleForNumber, _p0._0, _user$project$KingsCup$kingsCupRuleSet);
+	}
+};
 var _user$project$Main$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$none;
 };
-var _user$project$Main$globalModel = {deck: _user$project$Carts$allCards, currentShowedCard: _elm_lang$core$Maybe$Nothing};
+var _user$project$Main$globalModel = {deck: _user$project$Cards$allCards, currentShowedCard: _elm_lang$core$Maybe$Nothing};
 var _user$project$Main$init = {ctor: '_Tuple2', _0: _user$project$Main$globalModel, _1: _elm_lang$core$Platform_Cmd$none};
 var _user$project$Main$DrawCard = {ctor: 'DrawCard'};
 var _user$project$Main$Shuffled = function (a) {
@@ -9,14 +17,14 @@ var _user$project$Main$Shuffled = function (a) {
 };
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p0 = msg;
-		switch (_p0.ctor) {
+		var _p1 = msg;
+		switch (_p1.ctor) {
 			case 'Nada':
 				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 			case 'DrawCard':
-				var _p1 = _user$project$Carts$drawCard_(model.deck);
-				var card = _p1._0;
-				var remaining = _p1._1;
+				var _p2 = _user$project$Cards$drawCard_(model.deck);
+				var card = _p2._0;
+				var remaining = _p2._1;
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
@@ -28,7 +36,7 @@ var _user$project$Main$update = F2(
 				var shuffled = A2(
 					_elm_lang$core$Debug$log,
 					'shuffled: ',
-					_user$project$Carts$suffleDeck(model.deck));
+					_user$project$Cards$suffleDeck(model.deck));
 				return {
 					ctor: '_Tuple2',
 					_0: model,
@@ -39,7 +47,7 @@ var _user$project$Main$update = F2(
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{deck: _p0._0}),
+						{deck: _p1._0}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 		}
@@ -51,44 +59,25 @@ var _user$project$Main$view = function (model) {
 		{ctor: '[]'},
 		{
 			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$p,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text(
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							'Current: ',
-							_elm_lang$core$Basics$toString(model.currentShowedCard))),
-					_1: {ctor: '[]'}
-				}),
+			_0: _user$project$GUI$topMenu(model),
 			_1: {
 				ctor: '::',
 				_0: A2(
-					_elm_lang$html$Html$button,
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$DrawCard),
-						_1: {ctor: '[]'}
-					},
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html$text('Draw'),
-						_1: {ctor: '[]'}
-					}),
+					_elm_lang$html$Html$hr,
+					{ctor: '[]'},
+					{ctor: '[]'}),
 				_1: {
 					ctor: '::',
 					_0: A2(
-						_elm_lang$html$Html$button,
+						_elm_lang$html$Html$p,
+						{ctor: '[]'},
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Shuffle),
-							_1: {ctor: '[]'}
-						},
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html$text('Shuffle'),
+							_0: _elm_lang$html$Html$text(
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									'Current: ',
+									_elm_lang$core$Basics$toString(model.currentShowedCard))),
 							_1: {ctor: '[]'}
 						}),
 					_1: {
@@ -99,13 +88,55 @@ var _user$project$Main$view = function (model) {
 							{
 								ctor: '::',
 								_0: _elm_lang$html$Html$text(
-									A2(
-										_elm_lang$core$Basics_ops['++'],
-										'Remaining: ',
-										_elm_lang$core$Basics$toString(model.deck))),
+									_user$project$Main$showRule(model.currentShowedCard)),
 								_1: {ctor: '[]'}
 							}),
-						_1: {ctor: '[]'}
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$button,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$DrawCard),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('Draw'),
+									_1: {ctor: '[]'}
+								}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$button,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Shuffle),
+										_1: {ctor: '[]'}
+									},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('Shuffle'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$p,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text(
+												A2(
+													_elm_lang$core$Basics_ops['++'],
+													'Remaining: ',
+													_elm_lang$core$Basics$toString(model.deck))),
+											_1: {ctor: '[]'}
+										}),
+									_1: {ctor: '[]'}
+								}
+							}
+						}
 					}
 				}
 			}

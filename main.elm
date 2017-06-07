@@ -4,7 +4,9 @@ import Html.Events exposing(..)
 import Debug exposing(..)
 import Random
 
-import Carts exposing(..)
+import GUI exposing(..)
+import Cards exposing(..)
+import KingsCup exposing(..)
 
 main = 
     program 
@@ -51,9 +53,19 @@ update msg model =
 subscriptions model =
   Sub.none
 
+showRule modelCard = 
+  case modelCard of
+      Nothing ->
+          "No Rule"
+      Just card ->
+          ruleForNumber card kingsCupRuleSet
+
 view model =
   div [ ] 
-    [ p [ ][ text <| "Current: " ++ ( toString model.currentShowedCard ) ]
+    [ topMenu model
+    , hr[][]
+    , p [ ][ text <| "Current: " ++ ( toString model.currentShowedCard ) ]
+    , p [ ][ text <| showRule model.currentShowedCard   ]
     , button[ onClick DrawCard ][ text "Draw" ]
     , button[ onClick Shuffle ][ text "Shuffle" ]
     , p [ ][ text <| "Remaining: " ++ (toString model.deck) ]

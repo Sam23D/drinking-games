@@ -1,3 +1,11 @@
+var _user$project$Carts$sameSuit = F2(
+	function (card1, card2) {
+		return _elm_lang$core$Native_Utils.eq(card1.suit, card2.suit);
+	});
+var _user$project$Carts$sameNumber = F2(
+	function (card1, card2) {
+		return _elm_lang$core$Native_Utils.eq(card1.number, card2.number);
+	});
 var _user$project$Carts$suffleDeck = function (deck) {
 	return _elm_community$random_extra$Random_List$shuffle(deck);
 };

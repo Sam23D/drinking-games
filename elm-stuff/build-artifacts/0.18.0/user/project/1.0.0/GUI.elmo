@@ -1,0 +1,169 @@
+var _user$project$GUI$deckDisplay = function (deck) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$img,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$src('/Cards/cardBack_blue1.png'),
+							_1: {ctor: '[]'}
+						},
+						{ctor: '[]'}),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{ctor: '[]'},
+					{ctor: '[]'}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$GUI$deckFaceDown = function (deck) {
+	var _p0 = deck.cards;
+	if (_p0.ctor === '[]') {
+		return A2(
+			_elm_lang$html$Html$div,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$img,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$src('/Cards/cardBack_blue1.png'),
+						_1: {ctor: '[]'}
+					},
+					{ctor: '[]'}),
+				_1: {ctor: '[]'}
+			});
+	} else {
+		return A2(
+			_elm_lang$html$Html$div,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$img,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$src('/Cards/cardBack_blue4.png'),
+						_1: {ctor: '[]'}
+					},
+					{ctor: '[]'}),
+				_1: {ctor: '[]'}
+			});
+	}
+};
+var _user$project$GUI$numberNameForCard = function (card) {
+	var _p1 = card.number;
+	switch (_p1.ctor) {
+		case 'Ace':
+			return 'A';
+		case 'King':
+			return 'K';
+		case 'Queen':
+			return 'Q';
+		case 'Jack':
+			return 'J';
+		case 'Ten':
+			return '10';
+		case 'Nine':
+			return '9';
+		case 'Eight':
+			return '8';
+		case 'Seven':
+			return '7';
+		case 'Six':
+			return '6';
+		case 'Five':
+			return '5';
+		case 'Four':
+			return '4';
+		case 'Three':
+			return '3';
+		default:
+			return '2';
+	}
+};
+var _user$project$GUI$suitNameForCard = function (card) {
+	var _p2 = _user$project$Cards$suitOf(card);
+	switch (_p2.ctor) {
+		case 'Spades':
+			return 'Spades';
+		case 'Clubs':
+			return 'Clubs';
+		case 'Hearts':
+			return 'Hearts';
+		default:
+			return 'Diamonds';
+	}
+};
+var _user$project$GUI$nameForCard = function (card) {
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		'card',
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			_user$project$GUI$suitNameForCard(card),
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				_user$project$GUI$numberNameForCard(card),
+				'.png')));
+};
+var _user$project$GUI$urlForCard = function (card) {
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		'/Cards/',
+		_user$project$GUI$nameForCard(card));
+};
+var _user$project$GUI$topMenu = function (deck) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$h1,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Kings Cup'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: _user$project$GUI$deckFaceDown(
+					A2(
+						_user$project$Cards$Deck,
+						{
+							ctor: '::',
+							_0: A2(_user$project$Cards$Card, _user$project$Cards$Spades, _user$project$Cards$Nine),
+							_1: {ctor: '[]'}
+						},
+						0)),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$button,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Configuration'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+};
