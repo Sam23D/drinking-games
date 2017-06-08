@@ -11,6 +11,10 @@ var _user$project$Main$subscriptions = function (model) {
 };
 var _user$project$Main$globalModel = {deck: _user$project$Cards$allCards, currentShowedCard: _elm_lang$core$Maybe$Nothing};
 var _user$project$Main$init = {ctor: '_Tuple2', _0: _user$project$Main$globalModel, _1: _elm_lang$core$Platform_Cmd$none};
+var _user$project$Main$Model = F2(
+	function (a, b) {
+		return {deck: a, currentShowedCard: b};
+	});
 var _user$project$Main$DrawCard = {ctor: 'DrawCard'};
 var _user$project$Main$Shuffled = function (a) {
 	return {ctor: 'Shuffled', _0: a};
@@ -59,13 +63,24 @@ var _user$project$Main$view = function (model) {
 		{ctor: '[]'},
 		{
 			ctor: '::',
-			_0: _user$project$GUI$topMenu(model),
+			_0: A2(
+				_elm_lang$html$Html$hr,
+				{ctor: '[]'},
+				{ctor: '[]'}),
 			_1: {
 				ctor: '::',
 				_0: A2(
-					_elm_lang$html$Html$hr,
+					_elm_lang$html$Html$p,
 					{ctor: '[]'},
-					{ctor: '[]'}),
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								'Current: ',
+								_elm_lang$core$Basics$toString(model.currentShowedCard))),
+						_1: {ctor: '[]'}
+					}),
 				_1: {
 					ctor: '::',
 					_0: A2(
@@ -74,23 +89,12 @@ var _user$project$Main$view = function (model) {
 						{
 							ctor: '::',
 							_0: _elm_lang$html$Html$text(
-								A2(
-									_elm_lang$core$Basics_ops['++'],
-									'Current: ',
-									_elm_lang$core$Basics$toString(model.currentShowedCard))),
+								_user$project$Main$showRule(model.currentShowedCard)),
 							_1: {ctor: '[]'}
 						}),
 					_1: {
 						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$p,
-							{ctor: '[]'},
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html$text(
-									_user$project$Main$showRule(model.currentShowedCard)),
-								_1: {ctor: '[]'}
-							}),
+						_0: _user$project$GUI$topMenu(model.deck),
 						_1: {
 							ctor: '::',
 							_0: A2(

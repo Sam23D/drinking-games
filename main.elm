@@ -15,6 +15,12 @@ main =
     , subscriptions = subscriptions
     , update = update}
 
+type alias Model = 
+  { deck : List Card
+  , currentShowedCard : Maybe Card
+  }
+
+globalModel : Model
 globalModel = 
   { deck =  allCards 
   , currentShowedCard = Nothing
@@ -60,12 +66,13 @@ showRule modelCard =
       Just card ->
           ruleForNumber card kingsCupRuleSet
 
+view : Model -> Html Actions
 view model =
   div [ ] 
-    [ topMenu model
-    , hr[][]
+    [  hr[][]
     , p [ ][ text <| "Current: " ++ ( toString model.currentShowedCard ) ]
     , p [ ][ text <| showRule model.currentShowedCard   ]
+    , topMenu model.deck
     , button[ onClick DrawCard ][ text "Draw" ]
     , button[ onClick Shuffle ][ text "Shuffle" ]
     , p [ ][ text <| "Remaining: " ++ (toString model.deck) ]

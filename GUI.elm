@@ -4,11 +4,13 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Cards exposing (..)
 
+
+topMenu : List Card -> Html msg
 topMenu deck =
     div
         []
         [ h1 [] [ text "Kings Cup" ]
-        , deckFaceDown  (Deck [ Card Spades Nine ] 0)
+        , deckFaceDown deck
         , button [] [ text "Configuration" ]
         ]
 
@@ -78,9 +80,9 @@ numberNameForCard card =
         Two ->
             "2"
 
-deckFaceDown : Deck -> Html msg
+deckFaceDown : List Card -> Html msg
 deckFaceDown deck =
-    case deck.cards of
+    case deck of
         [] ->
             div []
             [ img [ src "/Cards/cardBack_blue1.png" ] []

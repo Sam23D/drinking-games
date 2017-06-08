@@ -30,7 +30,7 @@ var _user$project$GUI$deckDisplay = function (deck) {
 		});
 };
 var _user$project$GUI$deckFaceDown = function (deck) {
-	var _p0 = deck.cards;
+	var _p0 = deck;
 	if (_p0.ctor === '[]') {
 		return A2(
 			_elm_lang$html$Html$div,
@@ -143,15 +143,7 @@ var _user$project$GUI$topMenu = function (deck) {
 				}),
 			_1: {
 				ctor: '::',
-				_0: _user$project$GUI$deckFaceDown(
-					A2(
-						_user$project$Cards$Deck,
-						{
-							ctor: '::',
-							_0: A2(_user$project$Cards$Card, _user$project$Cards$Spades, _user$project$Cards$Nine),
-							_1: {ctor: '[]'}
-						},
-						0)),
+				_0: _user$project$GUI$deckFaceDown(deck),
 				_1: {
 					ctor: '::',
 					_0: A2(
