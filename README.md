@@ -1,4 +1,4 @@
 ## Drinking Games 
 Set of drinking games for the party nights
-### Current Games
+### Current Included Games
 - Kings Cup
