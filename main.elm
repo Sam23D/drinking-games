@@ -26,14 +26,13 @@ globalModel =
   , currentShowedCard = Nothing
   }
 
-init = ( globalModel , Cmd.none)
+init = ( globalModel , Random.generate Shuffled (shuffleDeck globalModel.deck))
 
 type Actions 
     =   Nada
     |   Shuffle
     |   Shuffled (List Card)
     |   DrawCard
-
 
 update msg model = 
     case msg of
@@ -47,7 +46,7 @@ update msg model =
 
       Shuffle ->
         let
-          shuffled = log "shuffled: " (suffleDeck model.deck)
+          shuffled = log "shuffled: " (shuffleDeck model.deck)
 
         in
           (model, Random.generate Shuffled shuffled)
@@ -59,23 +58,11 @@ update msg model =
 subscriptions model =
   Sub.none
 
-showRule modelCard = 
-  case modelCard of
-      Nothing ->
-          "No Rule"
-      Just card ->
-          ruleForNumber card kingsCupRuleSet
 
 view : Model -> Html Actions
 view model =
   div [ ] 
-    [  hr[][]
-    , p [ ][ text <| "Current: " ++ ( toString model.currentShowedCard ) ]
-    , p [ ][ text <| showRule model.currentShowedCard   ]
-    , topMenu model.deck
-    , button[ onClick DrawCard ][ text "Draw" ]
-    , button[ onClick Shuffle ][ text "Shuffle" ]
-    , p [ ][ text <| "Remaining: " ++ (toString model.deck) ]
+    [ mainView model.deck model.currentShowedCard DrawCard
     
     ]
 

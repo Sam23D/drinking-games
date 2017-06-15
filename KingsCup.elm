@@ -8,7 +8,6 @@ type alias Rule =
     , rule : String
     }
 
-
 rulesKingsCup : List String
 rulesKingsCup =
     [ "WATERFALL - Everyone chungs. You can stop when the person to your right stops, or just keep going!"
@@ -26,6 +25,31 @@ rulesKingsCup =
     , "YOU - Give a drink"
     ]
 
+showRule modelCard = 
+  case modelCard of
+      Nothing ->
+          "No Rule"
+      Just card ->
+           ruleForNumber card kingsCupRuleSet
+
+
+
+titleForRule : Maybe Card -> String
+titleForRule card = 
+    case String.split "-"  (showRule card) of
+        title :: _ ->   
+            title
+        [] ->
+            "Game Over"
+
+descForRule : Maybe Card -> String
+descForRule card = 
+    case String.split "-"  (showRule card) of
+        title :: desc :: _ -> 
+            desc  
+        _ ->   
+            "No Desc"
+            
 allRulesForSuit suit ruleSet =
     List.map2 Rule (cardsOfSuit suit) ruleSet
 

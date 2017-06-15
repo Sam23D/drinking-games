@@ -81,7 +81,7 @@ drawCard_ deck =
   in
     (drawn, remaining)
 
-suffleDeck deck =
+shuffleDeck deck =
     shuffle deck
 
 sameNumber card1 card2 =

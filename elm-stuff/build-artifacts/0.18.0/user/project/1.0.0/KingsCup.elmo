@@ -103,6 +103,36 @@ var _user$project$KingsCup$allRules = function (ruleSet) {
 		A2(_elm_lang$core$List$map, allRules, _user$project$Cards$allCardSuits));
 };
 var _user$project$KingsCup$kingsCupRuleSet = _user$project$KingsCup$allRules(_user$project$KingsCup$rulesKingsCup);
+var _user$project$KingsCup$showRule = function (modelCard) {
+	var _p2 = modelCard;
+	if (_p2.ctor === 'Nothing') {
+		return 'No Rule';
+	} else {
+		return A2(_user$project$KingsCup$ruleForNumber, _p2._0, _user$project$KingsCup$kingsCupRuleSet);
+	}
+};
+var _user$project$KingsCup$titleForRule = function (card) {
+	var _p3 = A2(
+		_elm_lang$core$String$split,
+		'-',
+		_user$project$KingsCup$showRule(card));
+	if (_p3.ctor === '::') {
+		return _p3._0;
+	} else {
+		return 'Game Over';
+	}
+};
+var _user$project$KingsCup$descForRule = function (card) {
+	var _p4 = A2(
+		_elm_lang$core$String$split,
+		'-',
+		_user$project$KingsCup$showRule(card));
+	if ((_p4.ctor === '::') && (_p4._1.ctor === '::')) {
+		return _p4._1._0;
+	} else {
+		return 'No Desc';
+	}
+};
 var _user$project$KingsCup$allDrink = A2(
 	_user$project$KingsCup$Rule,
 	{suit: _user$project$Cards$Spades, number: _user$project$Cards$Ace},

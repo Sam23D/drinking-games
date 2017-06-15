@@ -1,34 +1,43 @@
-var _user$project$Main$showRule = function (modelCard) {
-	var _p0 = modelCard;
-	if (_p0.ctor === 'Nothing') {
-		return 'No Rule';
-	} else {
-		return A2(_user$project$KingsCup$ruleForNumber, _p0._0, _user$project$KingsCup$kingsCupRuleSet);
-	}
-};
 var _user$project$Main$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$none;
 };
 var _user$project$Main$globalModel = {deck: _user$project$Cards$allCards, currentShowedCard: _elm_lang$core$Maybe$Nothing};
-var _user$project$Main$init = {ctor: '_Tuple2', _0: _user$project$Main$globalModel, _1: _elm_lang$core$Platform_Cmd$none};
 var _user$project$Main$Model = F2(
 	function (a, b) {
 		return {deck: a, currentShowedCard: b};
 	});
 var _user$project$Main$DrawCard = {ctor: 'DrawCard'};
+var _user$project$Main$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A3(_user$project$GUI$mainView, model.deck, model.currentShowedCard, _user$project$Main$DrawCard),
+			_1: {ctor: '[]'}
+		});
+};
 var _user$project$Main$Shuffled = function (a) {
 	return {ctor: 'Shuffled', _0: a};
 };
+var _user$project$Main$init = {
+	ctor: '_Tuple2',
+	_0: _user$project$Main$globalModel,
+	_1: A2(
+		_elm_lang$core$Random$generate,
+		_user$project$Main$Shuffled,
+		_user$project$Cards$shuffleDeck(_user$project$Main$globalModel.deck))
+};
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p1 = msg;
-		switch (_p1.ctor) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
 			case 'Nada':
 				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 			case 'DrawCard':
-				var _p2 = _user$project$Cards$drawCard_(model.deck);
-				var card = _p2._0;
-				var remaining = _p2._1;
+				var _p1 = _user$project$Cards$drawCard_(model.deck);
+				var card = _p1._0;
+				var remaining = _p1._1;
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
@@ -40,7 +49,7 @@ var _user$project$Main$update = F2(
 				var shuffled = A2(
 					_elm_lang$core$Debug$log,
 					'shuffled: ',
-					_user$project$Cards$suffleDeck(model.deck));
+					_user$project$Cards$shuffleDeck(model.deck));
 				return {
 					ctor: '_Tuple2',
 					_0: model,
@@ -51,101 +60,12 @@ var _user$project$Main$update = F2(
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{deck: _p1._0}),
+						{deck: _p0._0}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 		}
 	});
-var _user$project$Main$Shuffle = {ctor: 'Shuffle'};
-var _user$project$Main$view = function (model) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{ctor: '[]'},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$hr,
-				{ctor: '[]'},
-				{ctor: '[]'}),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$p,
-					{ctor: '[]'},
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html$text(
-							A2(
-								_elm_lang$core$Basics_ops['++'],
-								'Current: ',
-								_elm_lang$core$Basics$toString(model.currentShowedCard))),
-						_1: {ctor: '[]'}
-					}),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$p,
-						{ctor: '[]'},
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html$text(
-								_user$project$Main$showRule(model.currentShowedCard)),
-							_1: {ctor: '[]'}
-						}),
-					_1: {
-						ctor: '::',
-						_0: _user$project$GUI$topMenu(model.deck),
-						_1: {
-							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$button,
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$DrawCard),
-									_1: {ctor: '[]'}
-								},
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html$text('Draw'),
-									_1: {ctor: '[]'}
-								}),
-							_1: {
-								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$button,
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Shuffle),
-										_1: {ctor: '[]'}
-									},
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html$text('Shuffle'),
-										_1: {ctor: '[]'}
-									}),
-								_1: {
-									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$p,
-										{ctor: '[]'},
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html$text(
-												A2(
-													_elm_lang$core$Basics_ops['++'],
-													'Remaining: ',
-													_elm_lang$core$Basics$toString(model.deck))),
-											_1: {ctor: '[]'}
-										}),
-									_1: {ctor: '[]'}
-								}
-							}
-						}
-					}
-				}
-			}
-		});
-};
 var _user$project$Main$main = _elm_lang$html$Html$program(
 	{init: _user$project$Main$init, view: _user$project$Main$view, subscriptions: _user$project$Main$subscriptions, update: _user$project$Main$update})();
+var _user$project$Main$Shuffle = {ctor: 'Shuffle'};
 var _user$project$Main$Nada = {ctor: 'Nada'};

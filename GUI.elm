@@ -2,25 +2,35 @@ module GUI exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Cards exposing (..)
+import KingsCup exposing (..)
 
 
-topMenu : List Card -> Html msg
-topMenu deck =
+cardBackBlue1 = "Cards/cardBack_blue1.png"
+cardBackBlue4 = "Cards/cardBack_blue4.png"
+
+mainView : List Card -> Maybe Card -> msg -> Html msg
+mainView deck card msg =
     div
         []
-        [ h1 [] [ text "Kings Cup" ]
-        , deckFaceDown deck
-        , button [] [ text "Configuration" ]
+        [ h1 [] [ text <| titleForRule card ]
+        , a [ onClick msg ] 
+            [ faceUpCard card
+            ]
+        , p [] [ text <| descForRule card ]
         ]
+
 
 urlForCard : Card -> String
 urlForCard card =
-    "/Cards/" ++ nameForCard card
+    "Cards/" ++ nameForCard card
+
 
 nameForCard : Card -> String
-nameForCard card = 
-    "card" ++ suitNameForCard card ++ numberNameForCard card ++ ".png" 
+nameForCard card =
+    "card" ++ suitNameForCard card ++ numberNameForCard card ++ ".png"
+
 
 suitNameForCard : Card -> String
 suitNameForCard card =
@@ -80,24 +90,43 @@ numberNameForCard card =
         Two ->
             "2"
 
+
 deckFaceDown : List Card -> Html msg
 deckFaceDown deck =
     case deck of
         [] ->
             div []
-            [ img [ src "/Cards/cardBack_blue1.png" ] []
-            ]
+                [ img [ src cardBackBlue1 ] []
+                ]
+
         _ ->
             div []
-            [ img [ src "/Cards/cardBack_blue4.png" ] []
-            ]
+                [ img [ src cardBackBlue4 ] []
+                ]
+
+
+faceUpCard : Maybe Card -> Html msg
+faceUpCard card =
+    case card of
+        Nothing ->
+            div
+                []
+                [ img [ src cardBackBlue4 ] []
+                ]
+
+        Just card ->
+            div
+                []
+                [ img [ src (urlForCard card) ] []
+                ]
+
 
 deckDisplay : deck -> Html msg
 deckDisplay deck =
     div
         []
         [ div []
-            [ img [ src "/Cards/cardBack_blue1.png" ] []
+            [ img [ src cardBackBlue1 ] []
             ]
         , div [] []
         ]
