@@ -9554,14 +9554,6 @@ var _user$project$Cards$newDeckOfCards = function () {
 	return A2(_user$project$Cards$Deck, currentAllCards, deckSize);
 }();
 
-var _user$project$Actions$ToggleMenu = {ctor: 'ToggleMenu'};
-var _user$project$Actions$DrawCard = {ctor: 'DrawCard'};
-var _user$project$Actions$Shuffled = function (a) {
-	return {ctor: 'Shuffled', _0: a};
-};
-var _user$project$Actions$Shuffle = {ctor: 'Shuffle'};
-var _user$project$Actions$Nada = {ctor: 'Nada'};
-
 var _user$project$KingsCup$cardSuitEqualToRules = F2(
 	function (card, rule) {
 		return _elm_lang$core$Native_Utils.eq(card.suit, rule.card.suit);
@@ -9710,6 +9702,18 @@ var _user$project$KingsCup$someDrink = A2(
 	{suit: _user$project$Cards$Spades, number: _user$project$Cards$King},
 	'todos toman');
 
+var _user$project$Actions$Model = F4(
+	function (a, b, c, d) {
+		return {deck: a, currentShowedCard: b, menuDisplay: c, ruleSet: d};
+	});
+var _user$project$Actions$ToggleMenu = {ctor: 'ToggleMenu'};
+var _user$project$Actions$DrawCard = {ctor: 'DrawCard'};
+var _user$project$Actions$Shuffled = function (a) {
+	return {ctor: 'Shuffled', _0: a};
+};
+var _user$project$Actions$Shuffle = {ctor: 'Shuffle'};
+var _user$project$Actions$Nada = {ctor: 'Nada'};
+
 var _user$project$GUI$numberNameForCard = function (card) {
 	var _p0 = card.number;
 	switch (_p0.ctor) {
@@ -9766,60 +9770,79 @@ var _user$project$GUI$nameForCard = function (card) {
 				_user$project$GUI$numberNameForCard(card),
 				'.png')));
 };
-var _user$project$GUI$menu = A2(
-	_elm_lang$html$Html$div,
-	{ctor: '[]'},
-	{
-		ctor: '::',
-		_0: A2(
-			_elm_lang$html$Html$ul,
-			{ctor: '[]'},
-			{
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$li,
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$class('listTitle'),
-						_1: {ctor: '[]'}
-					},
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html$text('Juego'),
-						_1: {ctor: '[]'}
-					}),
-				_1: {
+var _user$project$GUI$ruleLi = function (rule) {
+	return A2(
+		_elm_lang$html$Html$li,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(rule.rule),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$GUI$menu = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$ul,
+				{ctor: '[]'},
+				{
 					ctor: '::',
 					_0: A2(
 						_elm_lang$html$Html$li,
-						{ctor: '[]'},
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html$text('Reiniciar'),
+							_0: _elm_lang$html$Html_Attributes$class('listTitle'),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Juego'),
 							_1: {ctor: '[]'}
 						}),
 					_1: {
 						ctor: '::',
 						_0: A2(
 							_elm_lang$html$Html$li,
+							{ctor: '[]'},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$class('listTitle'),
-								_1: {ctor: '[]'}
-							},
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html$text('Reglas'),
+								_0: _elm_lang$html$Html$text('Reiniciar'),
 								_1: {ctor: '[]'}
 							}),
-						_1: {ctor: '[]'}
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$li,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$class('listTitle'),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('Reglas'),
+									_1: {ctor: '[]'}
+								}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$div,
+									{ctor: '[]'},
+									A2(_elm_lang$core$List$map, _user$project$GUI$ruleLi, model.ruleSet)),
+								_1: {ctor: '[]'}
+							}
+						}
 					}
-				}
-			}),
-		_1: {ctor: '[]'}
-	});
-var _user$project$GUI$menuContainer = function (toggled) {
-	var _p2 = toggled;
+				}),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$GUI$menuContainer = function (model) {
+	var _p2 = model.menuDisplay;
 	if (_p2 === true) {
 		return A2(
 			_elm_lang$html$Html$div,
@@ -9840,7 +9863,7 @@ var _user$project$GUI$menuContainer = function (toggled) {
 					}),
 				_1: {
 					ctor: '::',
-					_0: _user$project$GUI$menu,
+					_0: _user$project$GUI$menu(model),
 					_1: {ctor: '[]'}
 				}
 			});
@@ -9903,67 +9926,51 @@ var _user$project$GUI$faceUpCard = function (card) {
 			});
 	}
 };
-var _user$project$GUI$mainView = F3(
-	function (deck, card, menuVisibility) {
-		return A2(
-			_elm_lang$html$Html$div,
-			{ctor: '[]'},
-			{
+var _user$project$GUI$mainView = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$h1,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						_user$project$KingsCup$titleForRule(model.currentShowedCard)),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
 				ctor: '::',
 				_0: A2(
-					_elm_lang$html$Html$h1,
-					{ctor: '[]'},
+					_elm_lang$html$Html$a,
 					{
 						ctor: '::',
-						_0: _elm_lang$html$Html$text(
-							_user$project$KingsCup$titleForRule(card)),
+						_0: _elm_lang$html$Html_Events$onClick(_user$project$Actions$DrawCard),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: _user$project$GUI$faceUpCard(model.currentShowedCard),
 						_1: {ctor: '[]'}
 					}),
 				_1: {
 					ctor: '::',
 					_0: A2(
-						_elm_lang$html$Html$a,
+						_elm_lang$html$Html$p,
+						{ctor: '[]'},
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html_Events$onClick(_user$project$Actions$DrawCard),
-							_1: {ctor: '[]'}
-						},
-						{
-							ctor: '::',
-							_0: _user$project$GUI$faceUpCard(card),
+							_0: _elm_lang$html$Html$text(
+								_user$project$KingsCup$descForRule(model.currentShowedCard)),
 							_1: {ctor: '[]'}
 						}),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$p,
-							{ctor: '[]'},
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html$text(
-									_user$project$KingsCup$descForRule(card)),
-								_1: {ctor: '[]'}
-							}),
-						_1: {
-							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$div,
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$id('menu'),
-									_1: {ctor: '[]'}
-								},
-								{
-									ctor: '::',
-									_0: _user$project$GUI$menuContainer(menuVisibility),
-									_1: {ctor: '[]'}
-								}),
-							_1: {ctor: '[]'}
-						}
-					}
+					_1: {ctor: '[]'}
 				}
-			});
-	});
+			}
+		});
+};
 var _user$project$GUI$cardBackBlue1 = 'Cards/cardBack_blue1.png';
 var _user$project$GUI$deckFaceDown = function (deck) {
 	var _p4 = deck;
@@ -10039,7 +10046,7 @@ var _user$project$Main$view = function (model) {
 		{ctor: '[]'},
 		{
 			ctor: '::',
-			_0: A3(_user$project$GUI$mainView, model.deck, model.currentShowedCard, model.menuDisplay),
+			_0: _user$project$GUI$mainView(model),
 			_1: {ctor: '[]'}
 		});
 };
@@ -10091,7 +10098,7 @@ var _user$project$Main$update = F2(
 				};
 		}
 	});
-var _user$project$Main$globalModel = {deck: _user$project$Cards$allCards, currentShowedCard: _elm_lang$core$Maybe$Nothing, menuDisplay: false};
+var _user$project$Main$globalModel = {deck: _user$project$Cards$allCards, currentShowedCard: _elm_lang$core$Maybe$Nothing, menuDisplay: false, ruleSet: _user$project$KingsCup$kingsCupRuleSet};
 var _user$project$Main$init = {
 	ctor: '_Tuple2',
 	_0: _user$project$Main$globalModel,
@@ -10102,10 +10109,6 @@ var _user$project$Main$init = {
 };
 var _user$project$Main$main = _elm_lang$html$Html$program(
 	{init: _user$project$Main$init, view: _user$project$Main$view, subscriptions: _user$project$Main$subscriptions, update: _user$project$Main$update})();
-var _user$project$Main$Model = F3(
-	function (a, b, c) {
-		return {deck: a, currentShowedCard: b, menuDisplay: c};
-	});
 
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};

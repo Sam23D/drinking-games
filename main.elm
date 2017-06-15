@@ -16,12 +16,7 @@ main =
     , subscriptions = subscriptions
     , update = update}
 
-type alias Model = 
-  { deck : List Card
-  , currentShowedCard : Maybe Card
-  , menuDisplay : Bool
-  , ruleSet : List Rule
-  }
+
 
 globalModel : Model
 globalModel = 

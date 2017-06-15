@@ -54,6 +54,16 @@ var _user$project$GUI$nameForCard = function (card) {
 				_user$project$GUI$numberNameForCard(card),
 				'.png')));
 };
+var _user$project$GUI$ruleLi = function (rule) {
+	return A2(
+		_elm_lang$html$Html$li,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(rule.rule),
+			_1: {ctor: '[]'}
+		});
+};
 var _user$project$GUI$menu = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
@@ -104,13 +114,9 @@ var _user$project$GUI$menu = function (model) {
 							_1: {
 								ctor: '::',
 								_0: A2(
-									_elm_lang$html$Html$li,
+									_elm_lang$html$Html$div,
 									{ctor: '[]'},
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html$text('Reiniciar'),
-										_1: {ctor: '[]'}
-									}),
+									A2(_elm_lang$core$List$map, _user$project$GUI$ruleLi, model.ruleSet)),
 								_1: {ctor: '[]'}
 							}
 						}
@@ -244,22 +250,7 @@ var _user$project$GUI$mainView = function (model) {
 								_user$project$KingsCup$descForRule(model.currentShowedCard)),
 							_1: {ctor: '[]'}
 						}),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$div,
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$id('menu'),
-								_1: {ctor: '[]'}
-							},
-							{
-								ctor: '::',
-								_0: _user$project$GUI$menuContainer(model),
-								_1: {ctor: '[]'}
-							}),
-						_1: {ctor: '[]'}
-					}
+					_1: {ctor: '[]'}
 				}
 			}
 		});

@@ -26,7 +26,7 @@ mainView model =
             [ faceUpCard model.currentShowedCard
             ]
         , p [] [ text <| descForRule model.currentShowedCard ]
-        , div [ id "menu" ] [ menuContainer model ]
+        {-, div [ id "menu" ] [ menuContainer model ]-}
         ]
 
 
@@ -53,10 +53,12 @@ menu model =
             [ li [ class "listTitle" ] [ text "Juego" ]
             , li [] [ text "Reiniciar" ]
             , li [ class "listTitle" ] [ text "Reglas" ]
-            , li [] [ text "Reiniciar" ]
+            , div [] ( List.map ruleLi model.ruleSet)
             ]
         ]
 
+ruleLi rule = 
+    li [][ text rule.rule ]
 
 nameForCard : Card -> String
 nameForCard card =

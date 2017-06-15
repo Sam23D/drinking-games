@@ -60,6 +60,7 @@ allRules ruleSet =
         List.map allRules allCardSuits 
         |> List.concat
 
+kingsCupRuleSet : List Rule
 kingsCupRuleSet =
     allRules rulesKingsCup
 
