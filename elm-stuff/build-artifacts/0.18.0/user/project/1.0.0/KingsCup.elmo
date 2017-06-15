@@ -38,7 +38,7 @@ var _user$project$KingsCup$rulesKingsCup = {
 		_0: 'KING\'S CUP - Pour your drink into the cup. Last King drawn drinks the cup and ends the game!',
 		_1: {
 			ctor: '::',
-			_0: 'QUESTION - take turns asking questions to each other quickly, first to pause or laught drinks',
+			_0: 'QUESTION - Take turns asking questions to each other quickly, first to pause or laught drinks',
 			_1: {
 				ctor: '::',
 				_0: 'RULE - Make a rule. If someone breaks it at any time they must drink',

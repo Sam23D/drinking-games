@@ -9554,6 +9554,14 @@ var _user$project$Cards$newDeckOfCards = function () {
 	return A2(_user$project$Cards$Deck, currentAllCards, deckSize);
 }();
 
+var _user$project$Actions$ToggleMenu = {ctor: 'ToggleMenu'};
+var _user$project$Actions$DrawCard = {ctor: 'DrawCard'};
+var _user$project$Actions$Shuffled = function (a) {
+	return {ctor: 'Shuffled', _0: a};
+};
+var _user$project$Actions$Shuffle = {ctor: 'Shuffle'};
+var _user$project$Actions$Nada = {ctor: 'Nada'};
+
 var _user$project$KingsCup$cardSuitEqualToRules = F2(
 	function (card, rule) {
 		return _elm_lang$core$Native_Utils.eq(card.suit, rule.card.suit);
@@ -9594,7 +9602,7 @@ var _user$project$KingsCup$rulesKingsCup = {
 		_0: 'KING\'S CUP - Pour your drink into the cup. Last King drawn drinks the cup and ends the game!',
 		_1: {
 			ctor: '::',
-			_0: 'QUESTION - take turns asking questions to each other quickly, first to pause or laught drinks',
+			_0: 'QUESTION - Take turns asking questions to each other quickly, first to pause or laught drinks',
 			_1: {
 				ctor: '::',
 				_0: 'RULE - Make a rule. If someone breaks it at any time they must drink',
@@ -9758,6 +9766,99 @@ var _user$project$GUI$nameForCard = function (card) {
 				_user$project$GUI$numberNameForCard(card),
 				'.png')));
 };
+var _user$project$GUI$menu = A2(
+	_elm_lang$html$Html$div,
+	{ctor: '[]'},
+	{
+		ctor: '::',
+		_0: A2(
+			_elm_lang$html$Html$ul,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$li,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('listTitle'),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('Juego'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$li,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Reiniciar'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$li,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('listTitle'),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('Reglas'),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
+				}
+			}),
+		_1: {ctor: '[]'}
+	});
+var _user$project$GUI$menuContainer = function (toggled) {
+	var _p2 = toggled;
+	if (_p2 === true) {
+		return A2(
+			_elm_lang$html$Html$div,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$button,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Events$onClick(_user$project$Actions$ToggleMenu),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('Close Menu'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: _user$project$GUI$menu,
+					_1: {ctor: '[]'}
+				}
+			});
+	} else {
+		return A2(
+			_elm_lang$html$Html$button,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Events$onClick(_user$project$Actions$ToggleMenu),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('Open Menu'),
+				_1: {ctor: '[]'}
+			});
+	}
+};
 var _user$project$GUI$urlForCard = function (card) {
 	return A2(
 		_elm_lang$core$Basics_ops['++'],
@@ -9766,8 +9867,8 @@ var _user$project$GUI$urlForCard = function (card) {
 };
 var _user$project$GUI$cardBackBlue4 = 'Cards/cardBack_blue4.png';
 var _user$project$GUI$faceUpCard = function (card) {
-	var _p2 = card;
-	if (_p2.ctor === 'Nothing') {
+	var _p3 = card;
+	if (_p3.ctor === 'Nothing') {
 		return A2(
 			_elm_lang$html$Html$div,
 			{ctor: '[]'},
@@ -9794,7 +9895,7 @@ var _user$project$GUI$faceUpCard = function (card) {
 					{
 						ctor: '::',
 						_0: _elm_lang$html$Html_Attributes$src(
-							_user$project$GUI$urlForCard(_p2._0)),
+							_user$project$GUI$urlForCard(_p3._0)),
 						_1: {ctor: '[]'}
 					},
 					{ctor: '[]'}),
@@ -9803,7 +9904,7 @@ var _user$project$GUI$faceUpCard = function (card) {
 	}
 };
 var _user$project$GUI$mainView = F3(
-	function (deck, card, msg) {
+	function (deck, card, menuVisibility) {
 		return A2(
 			_elm_lang$html$Html$div,
 			{ctor: '[]'},
@@ -9824,7 +9925,7 @@ var _user$project$GUI$mainView = F3(
 						_elm_lang$html$Html$a,
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html_Events$onClick(msg),
+							_0: _elm_lang$html$Html_Events$onClick(_user$project$Actions$DrawCard),
 							_1: {ctor: '[]'}
 						},
 						{
@@ -9843,15 +9944,30 @@ var _user$project$GUI$mainView = F3(
 									_user$project$KingsCup$descForRule(card)),
 								_1: {ctor: '[]'}
 							}),
-						_1: {ctor: '[]'}
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$div,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$id('menu'),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: _user$project$GUI$menuContainer(menuVisibility),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}
 					}
 				}
 			});
 	});
 var _user$project$GUI$cardBackBlue1 = 'Cards/cardBack_blue1.png';
 var _user$project$GUI$deckFaceDown = function (deck) {
-	var _p3 = deck;
-	if (_p3.ctor === '[]') {
+	var _p4 = deck;
+	if (_p4.ctor === '[]') {
 		return A2(
 			_elm_lang$html$Html$div,
 			{ctor: '[]'},
@@ -9917,35 +10033,18 @@ var _user$project$GUI$deckDisplay = function (deck) {
 		});
 };
 
-var _user$project$Main$subscriptions = function (model) {
-	return _elm_lang$core$Platform_Sub$none;
-};
-var _user$project$Main$globalModel = {deck: _user$project$Cards$allCards, currentShowedCard: _elm_lang$core$Maybe$Nothing};
-var _user$project$Main$Model = F2(
-	function (a, b) {
-		return {deck: a, currentShowedCard: b};
-	});
-var _user$project$Main$DrawCard = {ctor: 'DrawCard'};
 var _user$project$Main$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
 		{ctor: '[]'},
 		{
 			ctor: '::',
-			_0: A3(_user$project$GUI$mainView, model.deck, model.currentShowedCard, _user$project$Main$DrawCard),
+			_0: A3(_user$project$GUI$mainView, model.deck, model.currentShowedCard, model.menuDisplay),
 			_1: {ctor: '[]'}
 		});
 };
-var _user$project$Main$Shuffled = function (a) {
-	return {ctor: 'Shuffled', _0: a};
-};
-var _user$project$Main$init = {
-	ctor: '_Tuple2',
-	_0: _user$project$Main$globalModel,
-	_1: A2(
-		_elm_lang$core$Random$generate,
-		_user$project$Main$Shuffled,
-		_user$project$Cards$shuffleDeck(_user$project$Main$globalModel.deck))
+var _user$project$Main$subscriptions = function (model) {
+	return _elm_lang$core$Platform_Sub$none;
 };
 var _user$project$Main$update = F2(
 	function (msg, model) {
@@ -9972,9 +10071,9 @@ var _user$project$Main$update = F2(
 				return {
 					ctor: '_Tuple2',
 					_0: model,
-					_1: A2(_elm_lang$core$Random$generate, _user$project$Main$Shuffled, shuffled)
+					_1: A2(_elm_lang$core$Random$generate, _user$project$Actions$Shuffled, shuffled)
 				};
-			default:
+			case 'Shuffled':
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
@@ -9982,12 +10081,31 @@ var _user$project$Main$update = F2(
 						{deck: _p0._0}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
+			default:
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{menuDisplay: !model.menuDisplay}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
 		}
 	});
+var _user$project$Main$globalModel = {deck: _user$project$Cards$allCards, currentShowedCard: _elm_lang$core$Maybe$Nothing, menuDisplay: false};
+var _user$project$Main$init = {
+	ctor: '_Tuple2',
+	_0: _user$project$Main$globalModel,
+	_1: A2(
+		_elm_lang$core$Random$generate,
+		_user$project$Actions$Shuffled,
+		_user$project$Cards$shuffleDeck(_user$project$Main$globalModel.deck))
+};
 var _user$project$Main$main = _elm_lang$html$Html$program(
 	{init: _user$project$Main$init, view: _user$project$Main$view, subscriptions: _user$project$Main$subscriptions, update: _user$project$Main$update})();
-var _user$project$Main$Shuffle = {ctor: 'Shuffle'};
-var _user$project$Main$Nada = {ctor: 'Nada'};
+var _user$project$Main$Model = F3(
+	function (a, b, c) {
+		return {deck: a, currentShowedCard: b, menuDisplay: c};
+	});
 
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};

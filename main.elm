@@ -7,6 +7,7 @@ import Random
 import GUI exposing(..)
 import Cards exposing(..)
 import KingsCup exposing(..)
+import Actions exposing(..)
 
 main = 
     program 
@@ -18,21 +19,20 @@ main =
 type alias Model = 
   { deck : List Card
   , currentShowedCard : Maybe Card
+  , menuDisplay : Bool
+  , ruleSet : List Rule
   }
 
 globalModel : Model
 globalModel = 
   { deck =  allCards 
   , currentShowedCard = Nothing
+  , menuDisplay = False
+  , ruleSet = kingsCupRuleSet 
   }
 
 init = ( globalModel , Random.generate Shuffled (shuffleDeck globalModel.deck))
 
-type Actions 
-    =   Nada
-    |   Shuffle
-    |   Shuffled (List Card)
-    |   DrawCard
 
 update msg model = 
     case msg of
@@ -52,7 +52,9 @@ update msg model =
           (model, Random.generate Shuffled shuffled)
 
       Shuffled newDeck->
-        ({model | deck = newDeck }, Cmd.none)        
+        ({model | deck = newDeck }, Cmd.none)       
+      ToggleMenu ->
+        ( {model | menuDisplay = not model.menuDisplay}  ,Cmd.none) 
       
 
 subscriptions model =
@@ -62,7 +64,7 @@ subscriptions model =
 view : Model -> Html Actions
 view model =
   div [ ] 
-    [ mainView model.deck model.currentShowedCard DrawCard
+    [ mainView model
     
     ]
 

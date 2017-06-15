@@ -5,26 +5,57 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Cards exposing (..)
 import KingsCup exposing (..)
+import Actions exposing (..)
 
 
-cardBackBlue1 = "Cards/cardBack_blue1.png"
-cardBackBlue4 = "Cards/cardBack_blue4.png"
+cardBackBlue1 : String
+cardBackBlue1 =
+    "Cards/cardBack_blue1.png"
 
-mainView : List Card -> Maybe Card -> msg -> Html msg
-mainView deck card msg =
+cardBackBlue4 : String
+cardBackBlue4 =
+    "Cards/cardBack_blue4.png"
+
+
+mainView : Model -> Html Actions
+mainView model =
     div
         []
-        [ h1 [] [ text <| titleForRule card ]
-        , a [ onClick msg ] 
-            [ faceUpCard card
+        [ h1 [] [ text <| titleForRule model.currentShowedCard ]
+        , a [ onClick DrawCard ]
+            [ faceUpCard model.currentShowedCard
             ]
-        , p [] [ text <| descForRule card ]
+        , p [] [ text <| descForRule model.currentShowedCard ]
+        , div [ id "menu" ] [ menuContainer model ]
         ]
 
 
 urlForCard : Card -> String
 urlForCard card =
     "Cards/" ++ nameForCard card
+
+
+menuContainer model =
+    case model.menuDisplay of
+        True ->
+            div []
+                [ button [ onClick ToggleMenu ] [ text "Close Menu" ]
+                , menu model
+                ]
+
+        False ->
+            button [ onClick ToggleMenu ] [ text "Open Menu" ]
+
+
+menu model =
+    div []
+        [ ul []
+            [ li [ class "listTitle" ] [ text "Juego" ]
+            , li [] [ text "Reiniciar" ]
+            , li [ class "listTitle" ] [ text "Reglas" ]
+            , li [] [ text "Reiniciar" ]
+            ]
+        ]
 
 
 nameForCard : Card -> String

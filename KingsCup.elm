@@ -12,7 +12,7 @@ rulesKingsCup : List String
 rulesKingsCup =
     [ "WATERFALL - Everyone chungs. You can stop when the person to your right stops, or just keep going!"
     , "KING'S CUP - Pour your drink into the cup. Last King drawn drinks the cup and ends the game!"
-    , "QUESTION - take turns asking questions to each other quickly, first to pause or laught drinks"
+    , "QUESTION - Take turns asking questions to each other quickly, first to pause or laught drinks"
     , "RULE - Make a rule. If someone breaks it at any time they must drink"
     , "SOCIAL - Cheers, everyone drinks"
     , "RHYME - You choose a word, Take turns saying rhyming words quickly. First to pause or miss drink"
@@ -49,7 +49,7 @@ descForRule card =
             desc  
         _ ->   
             "No Desc"
-            
+
 allRulesForSuit suit ruleSet =
     List.map2 Rule (cardsOfSuit suit) ruleSet
 

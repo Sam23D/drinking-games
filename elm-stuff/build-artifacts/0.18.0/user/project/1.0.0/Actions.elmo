@@ -1,0 +1,11 @@
+var _user$project$Actions$Model = F4(
+	function (a, b, c, d) {
+		return {deck: a, currentShowedCard: b, menuDisplay: c, ruleSet: d};
+	});
+var _user$project$Actions$ToggleMenu = {ctor: 'ToggleMenu'};
+var _user$project$Actions$DrawCard = {ctor: 'DrawCard'};
+var _user$project$Actions$Shuffled = function (a) {
+	return {ctor: 'Shuffled', _0: a};
+};
+var _user$project$Actions$Shuffle = {ctor: 'Shuffle'};
+var _user$project$Actions$Nada = {ctor: 'Nada'};
